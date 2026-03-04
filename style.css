@@ -1,0 +1,330 @@
+/* --- VARIABLES DE COLOR --- */
+:root {
+    --fondo-pantalla: #f4f7f6;
+    --color-principal: #2c3e50;
+    --color-boton: #27ae60;
+    --color-boton-hover: #2ecc71;
+    --texto-oscuro: #333333;
+    --texto-claro: #7f8c8d;
+    --borde: #dfe6e9;
+    --rojo-negativo: #e74c3c;
+    --verde-positivo: #27ae60;
+}
+
+/* --- RESET BÁSICO --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: white; 
+    color: var(--texto-oscuro);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative; 
+}
+
+/* --- DECORACIONES DE FONDO (Billetes) --- */
+body::before {
+    content: "";
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('image_0.png'), url('image_1.png'); /* RECUERDA CAMBIAR ESTO POR TUS NOMBRES SI ES NECESARIO */
+    background-size: auto 60%, auto 60%; 
+    background-position: calc(-20% + 90px) center, calc(130% - 90px) center; 
+    background-repeat: no-repeat;
+    opacity: 0.70; 
+    z-index: -1; 
+    pointer-events: none; 
+}
+
+/* --- ESPACIOS PARA ANUNCIOS (AdSense) --- */
+.ad-space {
+    width: 100%;
+    max-width: 728px; 
+    height: 90px;
+    background-color: rgba(224, 224, 224, 0.8); 
+    border: 2px dashed #bdc3c7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    color: var(--texto-claro);
+    text-align: center;
+    border-radius: 8px; 
+}
+
+/* --- CONTENEDOR PRINCIPAL (AHORA MÁS ANCHO) --- */
+.contenedor-principal {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 650px; /* <--- MODIFICADO: De 500px a 650px para dar espacio a las columnas */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.1); 
+    border: 5px solid #000000; 
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: var(--color-principal);
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 0.95rem;
+    color: var(--texto-claro);
+    line-height: 1.5;
+}
+
+/* --- FORMULARIO Y BOTÓN --- */
+.caja-calculadora {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 2px solid var(--borde);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus {
+    border-color: #000; 
+}
+
+button {
+    background-color: var(--color-boton);
+    color: #ffffff;
+    border: 3px solid #000; 
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--color-boton-hover);
+    transform: translateY(-2px);
+}
+
+/* --- SECCIÓN DE RESULTADOS --- */
+.caja-resultados {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid var(--borde);
+}
+
+.caja-resultados h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--color-principal);
+    text-align: center;
+}
+
+.fila-resultado {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--borde);
+    margin: 15px 0;
+}
+
+.fila-resultado.total {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.valor-neutro { color: var(--texto-oscuro); font-weight: 600; }
+.valor-negativo { color: var(--rojo-negativo); font-weight: 600; }
+.valor-positivo { color: var(--verde-positivo); font-weight: bold; }
+
+/* --- AVISO LEGAL --- */
+.aviso-legal {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--borde);
+    font-size: 0.75rem;
+    color: var(--texto-claro);
+    text-align: justify;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   ESTILOS AVANZADOS: SWITCHES, OPCIONES Y TOOLTIPS
+   ========================================================= */
+
+[data-tooltip] {
+    position: relative;
+    cursor: help;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    white-space: normal;
+    width: max-content;
+    max-width: 250px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+    pointer-events: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Switch Neto/Bruto */
+.contenedor-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f1f2f6;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--borde);
+    margin-bottom: 5px;
+}
+
+.etiqueta-toggle { font-size: 0.9rem; font-weight: bold; }
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px; width: 18px;
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider { background-color: var(--color-boton); }
+input:checked + .slider:before { transform: translateX(22px); }
+
+/* Opciones Avanzadas (NUEVO DISEÑO EN GRID/COLUMNAS) */
+.opciones-avanzadas {
+    background-color: #fafafa;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 5px;
+}
+
+.opciones-avanzadas h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: var(--color-principal);
+    border-bottom: 1px solid var(--borde);
+    padding-bottom: 5px;
+}
+
+/* <--- LA MAGIA DEL GRID AQUÍ ---> */
+.opciones-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas del mismo tamaño */
+    gap: 15px; /* Espacio entre columnas y filas */
+}
+
+.opcion-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0; /* Quitamos el margen porque el 'gap' del grid ya hace el espacio */
+}
+
+.opcion-item label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.opcion-item input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.input-extra {
+    display: none; 
+    margin-top: 8px;
+    padding: 8px 12px !important;
+    font-size: 0.9rem !important;
+}
+
+/* --- RESPONSIVIDAD (Para Celulares) --- */
+/* Si la pantalla es menor a 600px, el grid vuelve a ser de 1 sola columna */
+@media (max-width: 600px) {
+    .opciones-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contenedor-toggle {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

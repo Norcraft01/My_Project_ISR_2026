@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Pro de ISR, Sueldo y Retenciones 2026</title>
+    <meta name="description" content="Calcula tu sueldo neto, bruto y retenciones como Infonavit, Vales, Fonacot y más en México (Actualizado 2026).">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="ad-space">
+        <p><small>Espacio reservado para Google AdSense (Banner Superior)</small></p>
+    </div>
+
+    <main class="contenedor-principal">
+        <header>
+            <h1>Calculadora de Nómina 2026</h1>
+            <p>Calcula tu sueldo real con todas tus prestaciones y retenciones de ley.</p>
+        </header>
+
+        <section class="caja-calculadora">
+            <div class="contenedor-toggle" data-tooltip="Actívalo si sabes cuánto quieres ganar libres y necesitas saber cuánto pedir en bruto.">
+                <span class="etiqueta-toggle">Calcular: Normal a Inverso (Neto a Bruto)</span>
+                <label class="switch">
+                    <input type="checkbox" id="chkInverso">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <label for="sueldoBase" id="lblSueldo">Sueldo Bruto Mensual (MXN):</label>
+            <input type="number" id="sueldoBase" placeholder="Ej. 15000" min="0" step="0.01">
+
+            <div class="opciones-avanzadas">
+                <h3>Opciones Adicionales</h3>
+                
+                <div class="opciones-grid"> <div class="opcion-item" data-tooltip="Si recibes vales, pon el monto mensual. Se suma a tu total, no paga ISR.">
+                        <label><input type="checkbox" id="chkVales"> Vales de Despensa</label>
+                        <input type="number" id="valVales" class="input-extra" placeholder="$ Monto mensual">
+                    </div>
+
+                    <div class="opcion-item" data-tooltip="Porcentaje de tu sueldo bruto que te retiene la empresa para ahorrarlo.">
+                        <label><input type="checkbox" id="chkAhorro"> Fondo de Ahorro</label>
+                        <input type="number" id="valAhorro" class="input-extra" placeholder="% (Ej. 5)">
+                    </div>
+
+                    <div class="opcion-item" data-tooltip="Descuento mensual fijo por tu crédito hipotecario.">
+                        <label><input type="checkbox" id="chkInfonavit"> Crédito Infonavit</label>
+                        <input type="number" id="valInfonavit" class="input-extra" placeholder="$ Cuota mensual">
+                    </div>
+
+                    <div class="opcion-item" data-tooltip="Descuento mensual de tu préstamo en efectivo.">
+                        <label><input type="checkbox" id="chkFonacot"> Préstamo FONACOT</label>
+                        <input type="number" id="valFonacot" class="input-extra" placeholder="$ Cuota mensual">
+                    </div>
+
+                    <div class="opcion-item" data-tooltip="Retención por orden judicial. Se calcula sobre el sueldo libre de impuestos.">
+                        <label><input type="checkbox" id="chkPension"> Pensión Alimenticia</label>
+                        <input type="number" id="valPension" class="input-extra" placeholder="% (Ej. 20)">
+                    </div>
+                </div>
+            </div>
+
+            <button id="btnCalcular">Calcular mi Dinero</button>
+        </section>
+
+        <section class="caja-resultados" id="seccionResultados" style="display: none;">
+            <h2>Desglose de Nómina</h2>
+            
+            <div class="fila-resultado" id="filaBrutoObjetivo" style="display: none;">
+                <span>Sueldo Bruto Necesario:</span>
+                <span id="resBruto" class="valor-neutro">$0.00</span>
+            </div>
+            
+            <div class="fila-resultado">
+                <span>Retención ISR:</span>
+                <span id="resIsr" class="valor-negativo">-$0.00</span>
+            </div>
+            
+            <div class="fila-resultado">
+                <span>Retención IMSS:</span>
+                <span id="resImss" class="valor-negativo">-$0.00</span>
+            </div>
+
+            <div id="contenedorDeducciones"></div>
+            
+            <hr>
+            
+            <div class="fila-resultado total">
+                <span>Total Efectivo a Recibir:</span>
+                <span id="resNetoEfectivo" class="valor-positivo">$0.00</span>
+            </div>
+
+            <div class="fila-resultado" id="filaVales" style="display: none; font-size: 0.9rem; color: #555;">
+                <span>+ Vales de despensa:</span>
+                <span id="resValesEfectivo">$0.00</span>
+            </div>
+        </section>
+
+        <div class="aviso-legal">
+            <p><strong>Aviso Legal:</strong> Los resultados son estimaciones informativas basadas en las tarifas del SAT y la UMA vigentes para 2026. No sustituyen un recibo de nómina oficial ni la asesoría de un profesional.</p>
+        </div>
+    </main>
+
+    <div class="ad-space">
+        <p><small>Espacio reservado para Google AdSense (Banner Inferior)</small></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
