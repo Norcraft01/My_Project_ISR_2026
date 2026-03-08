@@ -3,109 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Pro de ISR, Sueldo y Retenciones 2026</title>
-    <meta name="description" content="Calcula tu sueldo neto, bruto y retenciones como Infonavit, Vales, Fonacot y más en México (Actualizado 2026).">
+    <title>CalculadoraISR.com.mx - Sueldo y Retenciones 2026</title>
+    <meta name="description" content="Calcula tu sueldo neto, bruto y retenciones en México (Actualizado 2026).">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-
-    <div class="ad-space">
-        <p><small>Espacio reservado para Google AdSense (Banner Superior)</small></p>
+    <div class="control-colores" data-tooltip="Desactiva la inversión de color">
+        <span>Invertir Colores</span>
+        <label class="switch">
+            <input type="checkbox" id="chkColoresLocos">
+            <span class="slider"></span>
+        </label>
     </div>
-
-    <main class="contenedor-principal">
+    <div class="ad-space" data-html2canvas-ignore="true">
+        <p><small>Espacio reservado para Google AdSense</small></p>
+    </div>
+    <main class="contenedor-principal" id="tarjetaPrincipal">
         <header>
-            <h1>Calculadora de Nómina 2026</h1>
-            <p>Calcula tu sueldo real con todas tus prestaciones y retenciones de ley.</p>
+            <h1 id="tituloPrincipal">CalculadoraISR.com.mx</h1>
+            <p id="subtituloPrincipal">Calcula tu sueldo real con todas tus prestaciones y retenciones de ley.</p>
+            <div class="botones-header">
+                <button id="btnModoContador" class="btn-secundario">🕵️‍♂️ Modo Contador</button>
+                <button id="btnModoAguinaldo" class="btn-navideno">🎄 Calcular Aguinaldo</button>
+            </div>
         </header>
-
         <section class="caja-calculadora">
-            <div class="contenedor-toggle" data-tooltip="Actívalo si sabes cuánto quieres ganar libres y necesitas saber cuánto pedir en bruto.">
-                <span class="etiqueta-toggle">Calcular: Normal a Inverso (Neto a Bruto)</span>
+            <div class="contenedor-toggle" id="cajaToggleInverso" data-tooltip="Actívalo si sabes cuánto quieres ganar libres y necesitas saber cuánto pedir en bruto.">
+                <span class="etiqueta-toggle">Calcular: Normal a Inverso</span>
                 <label class="switch">
                     <input type="checkbox" id="chkInverso">
                     <span class="slider"></span>
                 </label>
             </div>
-
-            <label for="sueldoBase" id="lblSueldo">Sueldo Bruto Mensual (MXN):</label>
+            <label for="sueldoBase" id="lblSueldo">Sueldo Bruto (MXN):</label>
             <input type="number" id="sueldoBase" placeholder="Ej. 15000" min="0" step="0.01">
-
-            <div class="opciones-avanzadas">
-                <h3>Opciones Adicionales</h3>
-                
-                <div class="opciones-grid"> <div class="opcion-item" data-tooltip="Si recibes vales, pon el monto mensual. Se suma a tu total, no paga ISR.">
-                        <label><input type="checkbox" id="chkVales"> Vales de Despensa</label>
-                        <input type="number" id="valVales" class="input-extra" placeholder="$ Monto mensual">
+            <div id="panelContador" class="panel-contador-oculto">
+                <h3 class="titulo-hacker">/// PARÁMETROS FISCALES AVANZADOS ///</h3>
+                <div class="opciones-grid">
+                    <div class="opcion-item">
+                        <label>Periodo de Pago:</label>
+                        <select id="selPeriodo" class="input-hacker">
+                            <option value="mensual">Mensual (30.4 días)</option>
+                            <option value="quincenal">Quincenal (15.2 días)</option>
+                            <option value="semanal">Semanal (7 días)</option>
+                        </select>
                     </div>
-
-                    <div class="opcion-item" data-tooltip="Porcentaje de tu sueldo bruto que te retiene la empresa para ahorrarlo.">
-                        <label><input type="checkbox" id="chkAhorro"> Fondo de Ahorro</label>
-                        <input type="number" id="valAhorro" class="input-extra" placeholder="% (Ej. 5)">
+                    <div class="opcion-item">
+                        <label>Valor UMA ($):</label>
+                        <input type="number" id="valUma" class="input-hacker" value="117.31" step="0.01">
                     </div>
-
-                    <div class="opcion-item" data-tooltip="Descuento mensual fijo por tu crédito hipotecario.">
-                        <label><input type="checkbox" id="chkInfonavit"> Crédito Infonavit</label>
-                        <input type="number" id="valInfonavit" class="input-extra" placeholder="$ Cuota mensual">
+                    <div class="opcion-item" data-tooltip="Afecta el cálculo de la prima vacacional en el IMSS.">
+                        <label>Años en la empresa:</label>
+                        <input type="number" id="valAnios" class="input-hacker" value="1" min="1" max="50">
                     </div>
-
-                    <div class="opcion-item" data-tooltip="Descuento mensual de tu préstamo en efectivo.">
-                        <label><input type="checkbox" id="chkFonacot"> Préstamo FONACOT</label>
-                        <input type="number" id="valFonacot" class="input-extra" placeholder="$ Cuota mensual">
-                    </div>
-
-                    <div class="opcion-item" data-tooltip="Retención por orden judicial. Se calcula sobre el sueldo libre de impuestos.">
-                        <label><input type="checkbox" id="chkPension"> Pensión Alimenticia</label>
-                        <input type="number" id="valPension" class="input-extra" placeholder="% (Ej. 20)">
+                    <div class="opcion-item">
+                        <label>Factor Integración (Manual):</label>
+                        <input type="number" id="valFactorManual" class="input-hacker" placeholder="Ej. 1.0493" step="0.0001">
                     </div>
                 </div>
             </div>
-
+            <div class="opciones-avanzadas" id="cajaOpcionesExtra">
+                <h3>Opciones Adicionales</h3>
+                <div class="opciones-grid">
+                    <div class="opcion-item" data-tooltip="Los vales no pagan impuestos si están en monedero autorizado."><label><input type="checkbox" id="chkVales"> Vales Despensa</label><input type="number" id="valVales" class="input-extra" placeholder="$"></div>
+                    <div class="opcion-item" data-tooltip="Porcentaje bruto retenido para el ahorro."><label><input type="checkbox" id="chkAhorro"> Fondo Ahorro</label><input type="number" id="valAhorro" class="input-extra" placeholder="%"></div>
+                    <div class="opcion-item" data-tooltip="Cuota mensual de tu casa."><label><input type="checkbox" id="chkInfonavit"> Infonavit</label><input type="number" id="valInfonavit" class="input-extra" placeholder="$"></div>
+                    <div class="opcion-item" data-tooltip="Descuento en nómina de tu préstamo."><label><input type="checkbox" id="chkFonacot"> FONACOT</label><input type="number" id="valFonacot" class="input-extra" placeholder="$"></div>
+                    <div class="opcion-item" data-tooltip="Dictada por juez, se calcula sobre sueldo libre."><label><input type="checkbox" id="chkPension"> Pensión</label><input type="number" id="valPension" class="input-extra" placeholder="%"></div>
+                    <div class="opcion-item" data-tooltip="El costo real para el dueño del negocio."><label><input type="checkbox" id="chkCostoEmpresa"> Costo Empresa</label></div>
+                </div>
+            </div>
             <button id="btnCalcular">Calcular mi Dinero</button>
         </section>
-
         <section class="caja-resultados" id="seccionResultados" style="display: none;">
-            <h2>Desglose de Nómina</h2>
-            
-            <div class="fila-resultado" id="filaBrutoObjetivo" style="display: none;">
-                <span>Sueldo Bruto Necesario:</span>
-                <span id="resBruto" class="valor-neutro">$0.00</span>
+            <div id="desgloseContador" class="tabla-desglose" style="display: none;">
+                <h3 class="titulo-desglose">Desglose Exacto (Art. 96 LISR)</h3>
+                <div class="fila-desglose" id="filaExentoAguinaldo" style="display:none; color: #27ae60;"><span>Monto Exento (30 UMAs):</span> <span id="dcExento">-$0.00</span></div>
+                <div class="fila-desglose"><span style="color: #27ae60;" id="lblSbcBase">[SBC Calculado]:</span> <span id="dcSbc" style="color: #27ae60;">$0.00</span></div>
+                <div class="fila-desglose"><span>Ingreso Gravable:</span> <span id="dcGravable">$0.00</span></div>
+                <div class="fila-desglose"><span>- Límite Inferior:</span> <span id="dcLimite">$0.00</span></div>
+                <div class="fila-desglose linea-resultado"><span>= Diferencia (Base):</span> <span id="dcBase">$0.00</span></div>
+                <div class="fila-desglose"><span>x Tasa (%):</span> <span id="dcTasa">0%</span></div>
+                <div class="fila-desglose linea-resultado"><span>= Impuesto Marginal:</span> <span id="dcMarginal">$0.00</span></div>
+                <div class="fila-desglose"><span>+ Cuota Fija:</span> <span id="dcCuota">$0.00</span></div>
+                <div class="fila-desglose" id="filaSubsidio" style="color: #e67e22;"><span>- Subsidio al Empleo:</span> <span id="dcSubsidio">-$0.00</span></div>
+                <div class="fila-desglose linea-resultado"><span>= Impuesto a Retener:</span> <span id="dcRetener" class="valor-negativo">-$0.00</span></div>
             </div>
-            
-            <div class="fila-resultado">
-                <span>Retención ISR:</span>
-                <span id="resIsr" class="valor-negativo">-$0.00</span>
+            <div class="contenedor-grafica" id="cajaGrafica" style="display: none;">
+                <canvas id="graficaResultados"></canvas>
             </div>
-            
-            <div class="fila-resultado">
-                <span>Retención IMSS:</span>
-                <span id="resImss" class="valor-negativo">-$0.00</span>
-            </div>
-
+            <h2>Resumen de Nómina</h2>
+            <div class="fila-resultado" id="filaBrutoObjetivo" style="display: none;"><span>Sueldo Bruto:</span><span id="resBruto" class="valor-neutro">$0.00</span></div>
+            <div class="fila-resultado"><span>Retención ISR:</span><span id="resIsr" class="valor-negativo">-$0.00</span></div>
+            <div class="fila-resultado" id="filaImssUI"><span>Retención IMSS:</span><span id="resImss" class="valor-negativo">-$0.00</span></div>
             <div id="contenedorDeducciones"></div>
-            
             <hr>
-            
-            <div class="fila-resultado total">
-                <span>Total Efectivo a Recibir:</span>
-                <span id="resNetoEfectivo" class="valor-positivo">$0.00</span>
+            <div class="fila-resultado total"><span id="lblNetoFinal">Sueldo Neto a Recibir:</span><span id="resNetoEfectivo" class="valor-positivo">$0.00</span></div>
+            <div class="fila-resultado" id="filaVales" style="display: none; font-size: 0.9rem; color: #555;"><span>+ Vales de despensa:</span><span id="resValesEfectivo">$0.00</span></div>
+            <div class="caja-empresa" id="filaCostoEmpresa" style="display: none;">
+                <h4>Costo Total para la Empresa</h4>
+                <p>Sueldo Bruto + Cuota Patronal IMSS + ISN</p>
+                <span id="resCostoTotal" class="valor-neutro">$0.00</span>
             </div>
-
-            <div class="fila-resultado" id="filaVales" style="display: none; font-size: 0.9rem; color: #555;">
-                <span>+ Vales de despensa:</span>
-                <span id="resValesEfectivo">$0.00</span>
+            <div class="acciones-finales">
+                <button id="btnDescargarPDF" class="btn-pdf">📄 Descargar PDF</button>
+                <button id="btnCompartir" class="btn-whatsapp">📲 Compartir Cálculo</button>
             </div>
         </section>
-
         <div class="aviso-legal">
-            <p><strong>Aviso Legal:</strong> Los resultados son estimaciones informativas basadas en las tarifas del SAT y la UMA vigentes para 2026. No sustituyen un recibo de nómina oficial ni la asesoría de un profesional.</p>
+            <p><strong>Aviso Legal:</strong> Los resultados son estimaciones informativas basadas en las tarifas del SAT y la UMA vigentes para 2026. No sustituyen un recibo oficial.</p>
         </div>
     </main>
-
     <div class="ad-space">
-        <p><small>Espacio reservado para Google AdSense (Banner Inferior)</small></p>
+        <p><small>Espacio reservado para Google AdSense</small></p>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
