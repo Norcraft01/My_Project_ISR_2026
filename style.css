@@ -1,7 +1,7 @@
 :root {
     --fondo-pantalla: #f4f7f6; --color-principal: #2c3e50; --color-boton: #27ae60;
     --color-boton-hover: #2ecc71; --texto-oscuro: #333333; --texto-claro: #7f8c8d;
-    --borde: #dfe6e9; --rojo-negativo: #e74c3c; --verde-positivo: #27ae60; 
+    --borde: #dfe6e9; --rojo-negativo: #e74c3c; --verde-positivo: #27ae60;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
 body {
@@ -104,5 +104,4 @@ input:checked + .slider:before { transform: translateX(22px); }
     .control-colores, .ad-space, header, .caja-calculadora, .acciones-finales, .aviso-legal { display: none !important; }
     #seccionResultados { display: block !important; width: 100%; border: none !important; box-shadow: none !important; margin: 0 !important; padding: 20px !important; }
     .fila-resultado, .fila-desglose, .caja-empresa, .contenedor-grafica, .tabla-desglose, hr, h2 { page-break-inside: avoid; }
-
 }
